@@ -1,4 +1,6 @@
 <?php
+namespace App;
+use Exception;
 
 define('WORKING_HOURS', 8);
 

@@ -1,6 +1,6 @@
 <?php
-
-include_once 'DueDateCalculator.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+use App\DueDateCalculator;
 
 //var_dump("Hello World!");
 //var_dump(DueDateCalculator::test());
