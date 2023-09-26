@@ -39,32 +39,29 @@ class DueDateCalculator {
         return $dueDate;
     }
 
-    private static function IsWeekend($date) {
+    private static function IsWeekend($date) : bool {
         return $date->format('N') >= 6;
     }
 
-    private static function IsWorkingHour($date) {
+    private static function IsWorkingHour($date) : bool {
         return $date->format('H') >= START_WORKING_HOUR && $date->format('H') < END_WORKING_HOUR;
     }
 
-    private static function IsWorkingDay($date) {
+    private static function IsWorkingDay($date) : bool {
         return !self::IsWeekend($date) && self::IsWorkingHour($date);
     }
     
 
-    private static function CheckIsValidDate($date) {
+    private static function CheckIsValidDate($date) : void {
         if (!self::IsWorkingDay($date)) {
             throw new Exceptions\InvalidWorkingdayException();
         }
     }
 
-    private static function CheckIsValidTurnaroundTime($turnaroundTime) {
+    private static function CheckIsValidTurnaroundTime($turnaroundTime) : void {
         if ($turnaroundTime < 0) {
             throw new Exceptions\InvalidTurnaroundTimeException();
         }
     }
 
-    public static function test(){
-        return "Hello World!";
-    }
 }
