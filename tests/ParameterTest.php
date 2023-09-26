@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\DueDateCalculator;
-use App\Exceptions;
 use PHPUnit\Framework\TestCase;
 
 define('TEST_FORMAT', "Y-m-d h:iA");
@@ -10,7 +9,7 @@ define('TEST_FORMAT', "Y-m-d h:iA");
 final class ParameterTest extends TestCase
 {
     /** @test */
-    public function submitDateIsHoliday() : void {
+    public function submitDateIsHoliday() {
         $dateString = "2023-09-30 04:30PM";
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
@@ -20,7 +19,7 @@ final class ParameterTest extends TestCase
     }
 
     /** @test */
-    public function submitDateIsWorkingDay() : void {
+    public function submitDateIsWorkingDay() {
         $dateString = "2023-09-26 04:30PM";
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;

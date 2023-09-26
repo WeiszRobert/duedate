@@ -25,6 +25,10 @@ class DueDateCalculator {
             }
         }
 
+        if (self::IsWeekend($dueDate)) {
+            $dueDate->modify('+2 day');
+        }
+
         for ($i = 0; $i < $daysLeft; $i++) {
             $dueDate->modify('+1 day');
             if (self::IsWeekend($dueDate)) {
