@@ -13,4 +13,12 @@ final class Test extends TestCase
             DueDateCalculator::test()
         );
     }
+    public function testDateTimeComparison()
+    {
+        $expectedDateTime = new DateTime('2023-09-26 14:30:00');
+        $actualDateTime = new DateTime('2023-09-26 14:30:00');
+
+        // Use PHPUnit assertions to compare the DateTime objects
+        $this->assertEquals($expectedDateTime, $actualDateTime);
+    }
 }

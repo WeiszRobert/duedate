@@ -1,14 +1,17 @@
 <?php
 namespace App;
-use Exception;
+
+use DateTime;
 
 define('WORKING_HOURS', 8);
+define('START_WORKING_HOUR', 9);
+define('END_WORKING_HOUR', 17);
 
 class DueDateCalculator {
-    public static function CalculateDueDate($submitDate, $turnaroundTime) {
-        if (!self::IsWorkingDay($submitDate)) {
-            throw new Exception("Submit date must be a working day!");
-        }
+    public static function CalculateDueDate(DateTime $submitDate, int $turnaroundTime) : DateTime
+    {
+        self::CheckIsValidDate($submitDate);
+        self::CheckIsValidTurnaroundTime($turnaroundTime);
 
         $dueDate = clone $submitDate;
         
@@ -37,11 +40,24 @@ class DueDateCalculator {
     }
 
     private static function IsWorkingHour($date) {
-        return $date->format('H') >= 9 && $date->format('H') < 17;
+        return $date->format('H') >= START_WORKING_HOUR && $date->format('H') < END_WORKING_HOUR;
     }
 
     private static function IsWorkingDay($date) {
         return !self::IsWeekend($date) && self::IsWorkingHour($date);
+    }
+    
+
+    private static function CheckIsValidDate($date) {
+        if (!self::IsWorkingDay($date)) {
+            throw new Exceptions\InvalidWorkingdayException();
+        }
+    }
+
+    private static function CheckIsValidTurnaroundTime($turnaroundTime) {
+        if ($turnaroundTime < 0) {
+            throw new Exceptions\InvalidTurnaroundTimeException();
+        }
     }
 
     public static function test(){
