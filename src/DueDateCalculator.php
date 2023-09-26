@@ -25,22 +25,22 @@ class DueDateCalculator {
             }
         }
 
-        if (self::IsWeekend($dueDate)) {
+        if (!self::IsWeekday($dueDate)) {
             $dueDate->modify('+2 day');
         }
 
-        for ($i = 0; $i < $daysLeft; $i++) {
-            $dueDate->modify('+1 day');
-            if (self::IsWeekend($dueDate)) {
-                $dueDate->modify('+2 day');
+        while ($daysLeft > 0) {
+            $dueDate->modify("+1 day");
+            if (self::IsWeekday($dueDate)) {
+                $daysLeft--;
             }
         }
 
         return $dueDate;
     }
 
-    private static function IsWeekend($date) : bool {
-        return $date->format('N') >= 6;
+    private static function IsWeekday($date) : bool {
+        return $date->format('N') < 6;
     }
 
     private static function IsWorkingHour($date) : bool {
@@ -48,7 +48,7 @@ class DueDateCalculator {
     }
 
     private static function IsWorkingDay($date) : bool {
-        return !self::IsWeekend($date) && self::IsWorkingHour($date);
+        return self::IsWeekday($date) && self::IsWorkingHour($date);
     }
     
 
