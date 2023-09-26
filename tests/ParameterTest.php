@@ -9,7 +9,7 @@ define('TEST_FORMAT', "Y-m-d h:iA");
 final class ParameterTest extends TestCase
 {
     /** @test */
-    public function submitDateIsHoliday() {
+    public function submitDateIsWeekend() {
         $dateString = "2023-09-30 04:30PM";
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;

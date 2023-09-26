@@ -39,21 +39,21 @@ class DueDateCalculator {
         return $dueDate;
     }
 
-    private static function IsWeekday($date) : bool {
+    private static function IsWeekday(DateTime $date) : bool {
         return $date->format('N') < 6;
     }
 
-    private static function IsWorkingHour($date) : bool {
+    private static function IsWorkingHour(DateTime $date) : bool {
         return $date->format('H') >= START_WORKING_HOUR && $date->format('H') < END_WORKING_HOUR;
     }
 
-    private static function IsWorkingDay($date) : bool {
+    private static function IsWorkingDate(DateTime $date) : bool {
         return self::IsWeekday($date) && self::IsWorkingHour($date);
     }
     
 
     private static function CheckIsValidDate($date) : void {
-        if (!self::IsWorkingDay($date)) {
+        if (!self::IsWorkingDate($date)) {
             throw new Exceptions\InvalidWorkingdayException();
         }
     }
