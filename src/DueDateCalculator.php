@@ -19,8 +19,8 @@ class DueDateCalculator {
         while ($taskMinutes > 0) {
             $remainingMinutesToday = self::getRemainingMinutesToday($dueDate);
             if ($taskMinutes > $remainingMinutesToday) {
-                $modifier = (self::isFriday($dueDate) ? '+3 day' : '+1 day') . ' ' . START_WORKING_HOUR . ':00';
-                $dueDate->modify($modifier);
+                $nextWorkingDayModifier = (self::isFriday($dueDate) ? '+3 day' : '+1 day') . ' ' . START_WORKING_HOUR . ':00';
+                $dueDate->modify($nextWorkingDayModifier);
                 $taskMinutes -= $remainingMinutesToday;
             } else {
                 $dueDate->modify('+' . $taskMinutes . ' minutes');
@@ -40,21 +40,21 @@ class DueDateCalculator {
     }
 
     private static function isWeekday(DateTime $date) : bool {
-        return $date->format('N') < 6;
+        return intval($date->format('N')) < 6;
     }
 
     private static function isWorkingHour(DateTime $date) : bool {
-        return $date->format('H') >= START_WORKING_HOUR && $date->format('H') < END_WORKING_HOUR;
+        return intval($date->format('H')) >= START_WORKING_HOUR && intval($date->format('H')) < END_WORKING_HOUR;
     }
 
-    private static function IsWorkingDate(DateTime $date) : bool {
+    private static function isWorkingDate(DateTime $date) : bool {
         return self::isWeekday($date) && self::isWorkingHour($date);
     }
     
 
     private static function checkIsValidDate(DateTime $date) : void {
-        if (!self::IsWorkingDate($date)) {
-            throw new InvalidArgumentException("Submit date must be a working date!");
+        if (!self::isWorkingDate($date)) {
+            throw new InvalidArgumentException("Submit date must be a working date! (Weekdays between 9AM and 5PM)");
         }
     }
 
