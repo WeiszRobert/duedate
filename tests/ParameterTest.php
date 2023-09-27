@@ -15,7 +15,7 @@ final class ParameterTest extends TestCase
         $turnaroundTime = 1;
         
         $this->expectException(InvalidArgumentException::class);
-        $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
+        $dueDate = DueDateCalculator::calculateDueDate($submitDate, $turnaroundTime);
     }
 
     /** @test */
@@ -25,7 +25,7 @@ final class ParameterTest extends TestCase
         $turnaroundTime = 1;
         
         $this->expectException(InvalidArgumentException::class);
-        $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
+        $dueDate = DueDateCalculator::calculateDueDate($submitDate, $turnaroundTime);
     }
 
     /** @test */
@@ -35,7 +35,7 @@ final class ParameterTest extends TestCase
         $turnaroundTime = 1;
         
         $this->expectException(InvalidArgumentException::class);
-        $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
+        $dueDate = DueDateCalculator::calculateDueDate($submitDate, $turnaroundTime);
     }
 
     /** @test */
@@ -45,6 +45,6 @@ final class ParameterTest extends TestCase
         $turnaroundTime = (-1);
         
         $this->expectException(InvalidArgumentException::class);
-        $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
+        $dueDate = DueDateCalculator::calculateDueDate($submitDate, $turnaroundTime);
     }
 }
