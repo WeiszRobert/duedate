@@ -14,7 +14,7 @@ final class ParameterTest extends TestCase
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
-        $this->expectException(App\Exceptions\InvalidWorkingdayException::class);
+        $this->expectException(InvalidArgumentException::class);
         $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
     }
 
@@ -44,7 +44,7 @@ final class ParameterTest extends TestCase
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = (-1);
         
-        $this->expectException(App\Exceptions\InvalidTurnaroundTimeException::class);
+        $this->expectException(InvalidArgumentException::class);
         $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
     }
 }

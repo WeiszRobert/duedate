@@ -2,6 +2,7 @@
 namespace App;
 
 use DateTime;
+use InvalidArgumentException;
 
 define('START_WORKING_HOUR', 9);
 define('END_WORKING_HOUR', 17);
@@ -53,13 +54,13 @@ class DueDateCalculator {
 
     private static function CheckIsValidDate(DateTime $date) : void {
         if (!self::IsWorkingDate($date)) {
-            throw new Exceptions\InvalidWorkingdayException();
+            throw new InvalidArgumentException("Submit date must be a working date!");
         }
     }
 
     private static function CheckIsValidTurnaroundTime(int $turnaroundTime) : void {
         if ($turnaroundTime < 0) {
-            throw new Exceptions\InvalidTurnaroundTimeException();
+            throw new InvalidArgumentException("Turnaround time must be a positive integer!");
         }
     }
 
