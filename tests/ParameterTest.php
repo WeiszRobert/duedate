@@ -10,7 +10,7 @@ final class ParameterTest extends TestCase
 {
     /** @test */
     public function submitDateIsWeekend() {
-        $dateString = "2023-09-30 04:30PM";
+        $dateString = "2023-09-30 04:30PM"; //Saturday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
@@ -20,7 +20,7 @@ final class ParameterTest extends TestCase
 
     /** @test */
     public function submitDateIsWorkingDay() {
-        $dateString = "2023-09-26 04:30PM";
+        $dateString = "2023-09-26 04:30PM"; //Tuesday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
@@ -30,7 +30,7 @@ final class ParameterTest extends TestCase
 
     /** @test */
     public function turnaroundTimeIsPositive() {
-        $dateString = "2023-09-26 04:30PM";
+        $dateString = "2023-09-27 04:30PM"; //Wednesday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
@@ -40,7 +40,7 @@ final class ParameterTest extends TestCase
 
     /** @test */
     public function turnaroundTimeIsNegative() {
-        $dateString = "2023-09-26 04:30PM";
+        $dateString = "2023-09-26 04:30PM"; //Tuesday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = (-1);
         

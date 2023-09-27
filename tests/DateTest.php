@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 final class DateTest extends TestCase
 {
     /** @test */
-    public function submitDateIsSameDay() {
+    public function resolveDateIsSameDay() {
         $submitDateString = "2023-09-28 01:30PM"; //Thursday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 1;
@@ -20,7 +20,7 @@ final class DateTest extends TestCase
     }
 
     /** @test */
-    public function submitDateIsNextDay() {
+    public function resolveDateIsNextDay() {
         $submitDateString = "2023-09-28 04:30PM"; //Thursday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 1;
@@ -33,7 +33,7 @@ final class DateTest extends TestCase
     }
 
     /** @test */
-    public function submitDateIsNextWeek() {
+    public function resolveDateIsNextWeek() {
         $submitDateString = "2023-09-29 04:30PM"; //Friday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 1;
@@ -46,12 +46,38 @@ final class DateTest extends TestCase
     }
 
     /** @test */
-    public function turnaroundTimeIsEndOfWorkinghour() {
+    public function resolveDateIsEndOfWorkinghour() {
         $submitDateString = "2023-09-29 04:00PM"; //Friday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 1;
 
         $expectedDateString = "2023-09-29 05:00PM"; //Friday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::CalculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
+    public function turnaroundTimeIsOneDay() {
+        $submitDateString = "2023-09-27 04:30PM"; //Wednesday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 8;
+
+        $expectedDateString = "2023-09-28 04:30PM"; //Thursday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::CalculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
+    public function turnaroundTimeIsOneDayWithWeekend() {
+        $submitDateString = "2023-09-29 04:30PM"; //Friday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 8;
+
+        $expectedDateString = "2023-10-02 04:30PM"; //Monday
         $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
         $calculatedDateTime = DueDateCalculator::CalculateDueDate($submitDateTime, $turnaroundTime);
 
@@ -73,6 +99,19 @@ final class DateTest extends TestCase
 
     /** @test */
     public function turnaroundTimeIsOneWeek() {
+        $submitDateString = "2023-09-25 09:00AM"; //Monday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 8*5;
+
+        $expectedDateString = "2023-09-29 05:00PM"; //Friday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::CalculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
+    public function turnaroundTimeIsOneWeekWithWeekend() {
         $submitDateString = "2023-09-29 04:30PM"; //Friday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 8*5;
