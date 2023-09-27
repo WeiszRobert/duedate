@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\DueDateCalculator;
 use PHPUnit\Framework\TestCase;
 
-define('TEST_FORMAT', "Y-m-d h:iA");
+!defined('TEST_FORMAT') && define('TEST_FORMAT', "Y-m-d h:iA");
 
 final class ParameterTest extends TestCase
 {

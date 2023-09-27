@@ -4,6 +4,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\DueDateCalculator;
 use PHPUnit\Framework\TestCase;
 
+!defined('TEST_FORMAT') && define('TEST_FORMAT', "Y-m-d h:iA");
+
 final class DateTest extends TestCase
 {
     /** @test */
@@ -86,7 +88,7 @@ final class DateTest extends TestCase
 
     /** @test */
     public function turnaroundTimeIsMoreThanOneDayWithWeekend() {
-        $submitDateString = "2023-09-28 04:30PM"; //Friday
+        $submitDateString = "2023-09-28 04:30PM"; //Thursday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
         $turnaroundTime = 8+1;
 
