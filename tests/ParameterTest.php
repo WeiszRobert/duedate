@@ -10,7 +10,7 @@ final class ParameterTest extends TestCase
 {
     /** @test */
     public function submitDateIsWeekend() {
-        $dateString = "2023-09-30 04:30PM"; //Saturday
+        $dateString = "2023-09-30 02:30PM"; //Saturday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
@@ -19,22 +19,22 @@ final class ParameterTest extends TestCase
     }
 
     /** @test */
-    public function submitDateIsWorkingDay() {
-        $dateString = "2023-09-26 04:30PM"; //Tuesday
+    public function submitDateIsWeekdayAfterWorkingHours() {
+        $dateString = "2023-09-29 05:30PM"; //Friday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
-        $this->expectNotToPerformAssertions();
+        $this->expectException(InvalidArgumentException::class);
         $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
     }
 
     /** @test */
-    public function turnaroundTimeIsPositive() {
-        $dateString = "2023-09-27 04:30PM"; //Wednesday
+    public function submitDateIsWeekendAfterWorkingHours() {
+        $dateString = "2023-09-30 04:30PM"; //Saturday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
         $turnaroundTime = 1;
         
-        $this->expectNotToPerformAssertions();
+        $this->expectException(InvalidArgumentException::class);
         $dueDate = DueDateCalculator::CalculateDueDate($submitDate, $turnaroundTime);
     }
 
