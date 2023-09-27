@@ -151,4 +151,43 @@ final class DateTest extends TestCase
         $this->assertEquals($expctedDateTime, $calculatedDateTime);
     }
 
+    /** @test */
+    public function submitTimeIsLeapDay() {
+        $submitDateString = "2024-02-29 04:30PM"; //Thursday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 1;
+
+        $expectedDateString = "2024-03-01 09:30AM"; //Friday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
+    public function resolveTimeIsLeapDay() {
+        $submitDateString = "2024-02-28 04:30PM"; //Thursday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 1;
+
+        $expectedDateString = "2024-02-29 09:30AM"; //Friday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
+    public function timePeriodHasLeapDay() {
+        $submitDateString = "2024-02-28 04:30PM"; //Thursday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 9;
+
+        $expectedDateString = "2024-03-01 09:30AM"; //Friday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
 }

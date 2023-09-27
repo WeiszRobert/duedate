@@ -60,7 +60,7 @@ class DueDateCalculator {
 
     private static function checkIsValidTurnaroundTime(int $turnaroundTime) : void {
         if ($turnaroundTime < 0) {
-            throw new InvalidArgumentException("Turnaround time must be a positive integer!");
+            throw new InvalidArgumentException("Turnaround time must be an integer greater than 0!");
         }
     }
 
