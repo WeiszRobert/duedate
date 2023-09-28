@@ -8,6 +8,18 @@ use InvalidArgumentException;
 !defined('END_WORKING_HOUR') && define('END_WORKING_HOUR', 17);
 
 class DueDateCalculator {
+
+    /**
+     * Calculates the due date of a task based on the submit date and the turnaround time.
+     * 
+     * @param DateTime $submitDate The date when the task was submitted.
+     * @param int $turnaroundTime The time in hours it takes to complete the task.
+     * 
+     * @return DateTime The due date of the task.
+     * 
+     * @throws InvalidArgumentException If the submit date is not a working date (Weekdays between 9AM and 5PM).
+     * @throws InvalidArgumentException If the turnaround time is not a positive integer.
+     */
     public static function calculateDueDate(DateTime $submitDate, int $turnaroundTime) : DateTime
     {
         self::checkIsValidDate($submitDate);
