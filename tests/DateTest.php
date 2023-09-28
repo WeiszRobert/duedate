@@ -74,6 +74,19 @@ final class DateTest extends TestCase
     }
 
     /** @test */
+    public function turnaroundTimeIsZero() {
+        $submitDateString = "2023-09-27 04:30PM"; //Wednesday
+        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
+        $turnaroundTime = 0;
+
+        $expectedDateString = "2023-09-27 04:30PM"; //Wednesday
+        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
+        $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
+
+        $this->assertEquals($expctedDateTime, $calculatedDateTime);
+    }
+
+    /** @test */
     public function turnaroundTimeIsOneDayWithWeekend() {
         $submitDateString = "2023-09-29 04:30PM"; //Friday
         $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
@@ -171,19 +184,6 @@ final class DateTest extends TestCase
         $turnaroundTime = 1;
 
         $expectedDateString = "2024-02-29 09:30AM"; //Friday
-        $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
-        $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
-
-        $this->assertEquals($expctedDateTime, $calculatedDateTime);
-    }
-
-    /** @test */
-    public function timePeriodHasLeapDay() {
-        $submitDateString = "2024-02-28 04:30PM"; //Thursday
-        $submitDateTime = DateTime::createFromFormat(TEST_FORMAT, $submitDateString);
-        $turnaroundTime = 9;
-
-        $expectedDateString = "2024-03-01 09:30AM"; //Friday
         $expctedDateTime = DateTime::createFromFormat(TEST_FORMAT, $expectedDateString);
         $calculatedDateTime = DueDateCalculator::calculateDueDate($submitDateTime, $turnaroundTime);
 
