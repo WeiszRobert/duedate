@@ -19,6 +19,16 @@ final class ParameterTest extends TestCase
     }
 
     /** @test */
+    public function submitDateIsWeekdayEndOfWorkingHours() {
+        $dateString = "2023-09-28 05:00PM"; //Thursday
+        $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
+        $turnaroundTime = 1;
+        
+        $this->expectException(InvalidArgumentException::class);
+        $dueDate = DueDateCalculator::calculateDueDate($submitDate, $turnaroundTime);
+    }
+
+    /** @test */
     public function submitDateIsWeekdayAfterWorkingHours() {
         $dateString = "2023-09-29 05:30PM"; //Friday
         $submitDate = DateTime::createFromFormat(TEST_FORMAT, $dateString);
